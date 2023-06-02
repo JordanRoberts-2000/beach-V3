@@ -1,6 +1,7 @@
 import Category from "./components/Category";
 import pageData from '@/Data.json'
 import PixiCanvas from "./components/PixiCanvas";
+import Canvas2 from "./components/Canvas2";
 
 export default function Home() {
   return (
@@ -10,9 +11,7 @@ export default function Home() {
                 
                     <Category key={title} imageUrl={imageUrl} title={title}/>
                 
-                {i === 3 && 
-                    <PixiCanvas/>
-                }
+             
             </>
         ))}
     </main>

@@ -36,7 +36,7 @@ const Category = ({title, imageUrl}: Props) => {
     return (
         <>
             <div ref={imageWrapperRef} className='relative w-full aspect-[3/2] overflow-hidden'>
-                <Image ref={imageRef} src={imageUrl} alt='placeholder' fill className='object-cover duration-75'/>
+                <Image ref={imageRef} src={imageUrl} alt='placeholder' fill className='object-cover will-change-transform'/>
             </div>
         </>
     )
