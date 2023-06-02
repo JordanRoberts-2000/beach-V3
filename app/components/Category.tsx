@@ -11,7 +11,7 @@ type Props = {
 const Category = ({title, imageUrl}: Props) => {
     let imageRef = useRef<HTMLImageElement>(null)
     let imageWrapperRef = useRef<HTMLDivElement>(null)
-    const FPS = 60
+    const FPS = 120
     const nextFrame = 1000/FPS
     let lastAnimateTime = useRef(0)
     let animationTimer = useRef(0)
