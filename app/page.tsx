@@ -11,7 +11,12 @@ export default function Home() {
                 
                     <Category key={title} imageUrl={imageUrl} title={title}/>
                 
-             
+                {i === 3 && 
+                    <>
+                        <PixiCanvas key={'key'}/>
+                        <Canvas2 key={'key2'}/>
+                    </>
+                }
             </>
         ))}
     </main>

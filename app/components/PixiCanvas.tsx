@@ -83,15 +83,11 @@ const PixiCanvas = () =>{
         }
 
         const matrix = mat4.create()
+        
+        mat4.translate(matrix, matrix, [.2, .5, 0])
+        gl.uniformMatrix4fv(uniformLocations.matrix, false, matrix)
 
         gl.drawArrays(gl.TRIANGLES, 0, 3);
-        const animate = (gl: WebGLRenderingContext) => {
-            // mat4.translate(matrix, matrix, [.2, .5, 0])
-            mat4.rotateZ(matrix, matrix, Math.PI/2/70)
-            gl.uniformMatrix4fv(uniformLocations.matrix, false, matrix)
-            window.requestAnimationFrame(() => animate(gl))
-        }
-        animate(gl)
     },[])
     return (
         <canvas ref={canvasRef} id="webgl" width={400} height={400} className="border border-black mb-40"/>

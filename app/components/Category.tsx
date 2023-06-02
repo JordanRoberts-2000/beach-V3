@@ -22,8 +22,8 @@ const Category = ({title, imageUrl}: Props) => {
             animationTimer.current = 0
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
-                let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-                imageRef.current!.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
+                let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.35)
+                imageRef.current!.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .7))}px) scale(1.7)`
             }
         }else{
             animationTimer.current += deltaTIme
