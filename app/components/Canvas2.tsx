@@ -32,6 +32,7 @@ const Canvas2 = () => {
             1, 0, 0,
         ]
         createTriangle(gl.current!, vertexData, colorData); //white
+        gl.current!.drawArrays(gl.current!.TRIANGLES, 0, 3);
         
     }
     useEffect(() => {

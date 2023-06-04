@@ -11,7 +11,7 @@ type Props = {
 const Category = ({title, imageUrl}: Props) => {
     let imageRef = useRef<HTMLImageElement>(null)
     let imageWrapperRef = useRef<HTMLDivElement>(null)
-    const FPS = 120
+    const FPS = 1
     const nextFrame = 1000/FPS
     let lastAnimateTime = useRef(0)
     let animationTimer = useRef(0)
@@ -23,7 +23,7 @@ const Category = ({title, imageUrl}: Props) => {
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
                 let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.35)
-                imageRef.current!.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .7))}px) scale(1.7)`
+                imageRef.current!.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .7))}px) scale(1)`
             }
         }else{
             animationTimer.current += deltaTIme
