@@ -1,6 +1,8 @@
 'use client'
 
+import { mat4 } from "gl-matrix"
 import { useEffect, useRef } from "react"
+import { DeviceToNormalised } from "./NewestFunctions"
 
 const GoogleImage = () => {
     let canvasRef = useRef<HTMLCanvasElement>(null)
@@ -10,22 +12,23 @@ const GoogleImage = () => {
         image.src = 'http://res.cloudinary.com/dewhcvhvq/image/upload/v1683148330/whxzhkab41ho8hcqdt7a.webp'
         image.setAttribute('crossorigin', 'anonymous');
         image.onload = () => {
-            console.log(image.width, image.height)
             if(!canvasRef.current)return
             gl.current = canvasRef.current!.getContext('webgl')
             if(!gl.current)return
-            gl.current.viewport(0, 0, gl.current.drawingBufferWidth, gl.current.drawingBufferHeight)
+            // gl.current.viewport(0, 0, gl.current.drawingBufferWidth, gl.current.drawingBufferHeight)
+            gl.current.viewport(0, 0, image.width, image.height)
             gl.current.clearColor(0, 0, 0, 1)
             gl.current.clear(gl.current.COLOR_BUFFER_BIT)
             // only runs for the amount of vertices
             const vertexShaderSource = `
                 attribute vec2 position;
                 varying vec2 texCoords;
+                uniform mat4 matrix;
 
                 void main(){
                     texCoords = (position + 1.0)/2.0;
                     texCoords.y = 1.0 - texCoords.y;
-                    gl_Position = vec4(position, 0, 1.0);
+                    gl_Position = matrix * vec4(position, 0, 1.0);
                 }
             `;
             // runs for every pixil
@@ -65,6 +68,11 @@ const GoogleImage = () => {
                 1,  1,
                 1, -1
             ])
+            const matrix = mat4.create()
+            // mat4.scale(matrix, matrix, [.2, .2, 0])
+            // mat4.translate(matrix, matrix, [0, 0, 0])
+            // mat4.translate(matrix, matrix, [DeviceToNormalised(0, image.width), DeviceToNormalised(0, image.height), 0])
+           
             // creates chunck of memory in graphics card with nothing on it
             const vertexBuffer = gl.current.createBuffer()
             gl.current.bindBuffer(gl.current.ARRAY_BUFFER, vertexBuffer)
@@ -83,6 +91,10 @@ const GoogleImage = () => {
             gl.current.texParameteri(gl.current.TEXTURE_2D, gl.current.TEXTURE_WRAP_T, gl.current.CLAMP_TO_EDGE)
             gl.current.texParameteri(gl.current.TEXTURE_2D, gl.current.TEXTURE_MIN_FILTER, gl.current.LINEAR)
             gl.current.texParameteri(gl.current.TEXTURE_2D, gl.current.TEXTURE_MAG_FILTER, gl.current.LINEAR)
+            const uniformLocations = {
+                matrix: gl.current.getUniformLocation(program!, 'matrix')
+            }
+            gl.current.uniformMatrix4fv(uniformLocations.matrix, false, matrix)
 
             gl.current.drawArrays(gl.current.TRIANGLES, 0, 6)
         }
